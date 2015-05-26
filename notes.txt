@@ -1,0 +1,11 @@
+text: Pick the cuter kitten
+
+
+on load:
+  -select randomly 2 pics
+  -display pics
+
+on clicking photo:
+  -highlight clicked photo
+  -reveal rank, votes for each pic
+  -show button to repeat the process with encouraging text
