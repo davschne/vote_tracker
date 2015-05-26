@@ -43,7 +43,7 @@ function Tracker() {
 
   this.init = function() {
     // get image container nodes, remove highlighting
-    $photos = $('.photos').removeClass("highlight");
+    $photos = $('.photos')//.removeClass("highlight");
 
     // hide/disable vote-again
     $('.vote-again').hide();
@@ -72,7 +72,7 @@ function Tracker() {
 
     // highlight winning image
     // we define a CSS class "highlight"
-    $element.addClass("highlight");
+    $element.children('img').addClass("highlight");
 
     // display votes for both images
     showVotes();
