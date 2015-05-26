@@ -5,10 +5,14 @@ function Photo(image) {
   this.votes = 0;
 }
 
-Photo.prototype.display = function($element) {
+Photo.prototype.displayImages = function($element) {
   $element.empty()
     .append('<img src="' + this.image + '">');
 };
+
+Photo.prototype.displayVotes = function($element) {
+  $element.append('<p>Total votes: ' + this.votes + '</p>');
+}
 
 var photos = [];
 for (var i = 1; i <= numImages; i++) {
@@ -31,8 +35,10 @@ function Tracker() {
     else return imgB;
   };
 
-  var showVotes = function(photoA, photoB) {
-
+  var showVotes = function() {
+    $photos = $('.photos');
+    imgA.displayVotes($photos.eq(0));
+    imgB.displayVotes($photos.eq(1));
   };
 
   this.init = function() {
@@ -47,8 +53,8 @@ function Tracker() {
     var indices = getRandomIndices();
     imgA = photos[indices[0]];
     imgB = photos[indices[1]];
-    imgA.display($photos.eq(0));
-    imgB.display($photos.eq(1));
+    imgA.displayImages($photos.eq(0));
+    imgB.displayImages($photos.eq(1));
 
     // register event listener for voting
     $('.photos').on("click", win);
