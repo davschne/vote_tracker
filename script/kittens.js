@@ -1,93 +1,95 @@
-var numImages = 14;
+$(function() {
+  var numImages = 14;
 
-function Photo(image) {
-  this.image = image;
-  this.votes = 0;
-}
+  function Photo(image) {
+    this.image = image;
+    this.votes = 0;
+  }
 
-Photo.prototype.displayImages = function($element) {
-  $element.empty()
-    .append('<img src="' + this.image + '">');
-};
-
-Photo.prototype.displayVotes = function($element) {
-  $element.append('<p>Total votes: ' + this.votes + '</p>');
-}
-
-var photos = [];
-for (var i = 1; i <= numImages; i++) {
-  photos.push(new Photo("images/" + i.toString() + ".jpg"));
-}
-
-function Tracker() {
-  var imgA, imgB;
-
-  var getRandomIndices = function() {
-    var randA = Math.floor(Math.random() * numImages);
-    do {
-      var randB = Math.floor(Math.random() * numImages);
-    } while (randB == randA);
-    return [randA, randB];
+  Photo.prototype.displayImages = function($element) {
+    $element.empty()
+      .append('<img src="' + this.image + '">');
   };
 
-  var getWinner = function($element) {
-    if ($element.attr("id") == "imgA") return imgA;
-    else return imgB;
-  };
+  Photo.prototype.displayVotes = function($element) {
+    $element.append('<p>Total votes: ' + this.votes + '</p>');
+  }
 
-  var showVotes = function() {
-    $photos = $('.photos');
-    imgA.displayVotes($photos.eq(0));
-    imgB.displayVotes($photos.eq(1));
-  };
+  var photos = [];
+  for (var i = 1; i <= numImages; i++) {
+    photos.push(new Photo("images/" + i.toString() + ".jpg"));
+  }
 
-  this.init = function() {
-    // get image container nodes, remove highlighting
-    $photos = $('.photos')//.removeClass("highlight");
+  function Tracker() {
+    var imgA, imgB;
 
-    // hide/disable vote-again
-    $('.vote-again').hide();
-    $('.vote-again button').off("click");
+    var getRandomIndices = function() {
+      var randA = Math.floor(Math.random() * numImages);
+      do {
+        var randB = Math.floor(Math.random() * numImages);
+      } while (randB == randA);
+      return [randA, randB];
+    };
 
-    // load photos
-    var indices = getRandomIndices();
-    imgA = photos[indices[0]];
-    imgB = photos[indices[1]];
-    imgA.displayImages($photos.eq(0));
-    imgB.displayImages($photos.eq(1));
+    var getWinner = function($element) {
+      if ($element.attr("id") == "imgA") return imgA;
+      else return imgB;
+    };
 
-    // register event listener for voting
-    $('.photos').on("click", win);
-  };
+    var showVotes = function() {
+      $photos = $('.photos');
+      imgA.displayVotes($photos.eq(0));
+      imgB.displayVotes($photos.eq(1));
+    };
 
-  var win = function(event) {
-    var $element = $(event.target).parent();
+    this.init = function() {
+      // get image container nodes, remove highlighting
+      $photos = $('.photos')//.removeClass("highlight");
 
-    // determine winning image
-    var winner = getWinner($element);
-    console.log(winner);
+      // hide/disable vote-again
+      $('.vote-again').hide();
+      $('.vote-again button').off("click");
 
-    // increment votes for winning image
-    winner.votes++;
+      // load photos
+      var indices = getRandomIndices();
+      imgA = photos[indices[0]];
+      imgB = photos[indices[1]];
+      imgA.displayImages($photos.eq(0));
+      imgB.displayImages($photos.eq(1));
 
-    // highlight winning image
-    // we define a CSS class "highlight"
-    $element.children('img').addClass("highlight");
+      // register event listener for voting
+      $('.photos').on("click", win);
+    };
 
-    // display votes for both images
-    showVotes();
+    var win = function(event) {
+      var $element = $(event.target).parent();
 
-    // disable further voting
-    $('.photos').off("click");
+      // determine winning image
+      var winner = getWinner($element);
+      console.log(winner);
 
-    // allow voting again
-    $('.vote-again').show();
-    $('.vote-again button').on("click", function(event) {
-      event.preventDefault();
-      tracker.init();
-    });
-  };
-}
+      // increment votes for winning image
+      winner.votes++;
 
-var tracker = new Tracker();
-tracker.init();
+      // highlight winning image
+      // we define a CSS class "highlight"
+      $element.children('img').addClass("highlight");
+
+      // display votes for both images
+      showVotes();
+
+      // disable further voting
+      $('.photos').off("click");
+
+      // allow voting again
+      $('.vote-again').show();
+      $('.vote-again button').on("click", function(event) {
+        event.preventDefault();
+        tracker.init();
+      });
+    };
+  }
+
+  var tracker = new Tracker();
+  tracker.init();
+});
