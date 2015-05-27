@@ -23,6 +23,15 @@
 - Utilities
 - Clearing
 - Media Queries
+
+COLORS:
+
+#002F32 : Dark green;
+#42826C : Med green;
+#A5C77F : Light green;
+#FFC861 : Yellow;
+#C84663 : Pink;
+
 */
 
 
@@ -126,8 +135,41 @@ body {
   font-weight: 400;
   font-family: "Fredoka One", cursive;
   text-align: center;
-  color: #222; }
-
+  letter-spacing: .1rem;
+  color: #002F32;
+  background-color: #FFC861; }
+header {
+  background-color: #A5C77F;
+  border: 1px solid #002F32;}
+main {
+  background-color: #42826C;
+  border: 1px solid #002F32;
+}
+h1 {
+  padding: 2rem;
+  color: #002F32;
+  text-shadow: 4px 4px 2px #42826C;
+}
+h2 {
+  color: #C84663;
+  text-shadow: 2px 2px 2px #42826C;
+}
+.votes {
+  color: #FFC861;
+}
+img {
+  border: 5px solid #002F32;
+  box-shadow: 8px 8px 5px #002F32;
+}
+.photos {
+  padding: 5rem 0 2rem 0;
+}
+img:hover, img:focus {
+  border-color: #A5C77F;
+}
+.highlight {
+  border: 5px solid #FFC861;
+}
 
 /* Typography
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -175,20 +217,23 @@ input[type="button"] {
   display: inline-block;
   height: 50px;
   padding: 0 30px;
-  color: #555;
+  color: #FFC861;
   text-align: center;
+  font-family: "Slackey", cursive;
   font-size: 16px;
   font-weight: 600;
   line-height: 38px;
   letter-spacing: .2rem;
-  text-transform: uppercase;
+  text-shadow: 2px 2px 2px #002F32;
   text-decoration: none;
   white-space: nowrap;
-  background-color: transparent;
+  background-color: #C84663;
   border-radius: 16px;
-  border: 1px solid #bbb;
+  border: 1px solid #42826C;
   cursor: pointer;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  box-shadow: 5px 5px 2px #002F32;
+}
 .button:hover,
 button:hover,
 input[type="submit"]:hover,
@@ -199,15 +244,15 @@ button:focus,
 input[type="submit"]:focus,
 input[type="reset"]:focus,
 input[type="button"]:focus {
-  color: #333;
-  border-color: #888;
+  color: #A5C77F;
+  border-color: #A5C77F;
   outline: 0; }
 .button.button-primary,
 button.button-primary,
 input[type="submit"].button-primary,
 input[type="reset"].button-primary,
 input[type="button"].button-primary {
-  color: #FFF;
+  color: #A5C77F;
   background-color: #33C3F0;
   border-color: #33C3F0; }
 .button.button-primary:hover,

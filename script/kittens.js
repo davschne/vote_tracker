@@ -12,7 +12,7 @@ $(function() {
   };
 
   Photo.prototype.displayVotes = function($element) {
-    $element.append('<p>Total votes: ' + this.votes + '</p>');
+    $element.append('<p>Total votes: <span class="votes">' + this.votes + '</span></p>');
   }
 
   var photos = [];
