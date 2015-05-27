@@ -51,7 +51,7 @@ $(function() {
       imgB.displayImages($photos.eq(1));
 
       // register event listener for voting
-      $('#pics').on("click", '.photos', win); //*DEBUG THIS*
+      $('#pics').on("click", '.photos', win);
     };
 
     var win = function(event) {
@@ -71,7 +71,7 @@ $(function() {
       showVotes();
 
       // disable further voting
-      $('.photos').off("click");
+      $('#pics').off("click");
 
       // allow voting again
       $('.vote-again').removeClass("hidden");
