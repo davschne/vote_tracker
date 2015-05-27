@@ -1,5 +1,4 @@
 $(function() {
-  var numImages = 14;
 
   function Photo(image) {
     this.image = image;
@@ -7,26 +6,20 @@ $(function() {
   }
 
   Photo.prototype.displayImages = function($element) {
-    $element.empty()
-      .append('<img src="' + this.image + '">');
+    $element.html('<img src="' + this.image + '">');
   };
 
   Photo.prototype.displayVotes = function($element) {
     $element.append('<p>Total votes: <span class="votes">' + this.votes + '</span></p>');
   }
 
-  var photos = [];
-  for (var i = 1; i <= numImages; i++) {
-    photos.push(new Photo("images/" + i.toString() + ".jpg"));
-  }
-
   function Tracker() {
     var imgA, imgB;
 
     var getRandomIndices = function() {
-      var randA = Math.floor(Math.random() * numImages);
+      var randA = Math.floor(Math.random() * photos.length);
       do {
-        var randB = Math.floor(Math.random() * numImages);
+        var randB = Math.floor(Math.random() * photos.length);
       } while (randB == randA);
       return [randA, randB];
     };
@@ -44,10 +37,10 @@ $(function() {
 
     this.init = function() {
       // get image container nodes, remove highlighting
-      $photos = $('.photos')//.removeClass("highlight");
+      $photos = $('.photos');
 
       // hide/disable vote-again
-      $('.vote-again').hide();
+      $('.vote-again').addClass("hidden");
       $('.vote-again button').off("click");
 
       // load photos
@@ -58,7 +51,7 @@ $(function() {
       imgB.displayImages($photos.eq(1));
 
       // register event listener for voting
-      $('.photos').on("click", win);
+      $('#pics').on("click", '.photos', win);
     };
 
     var win = function(event) {
@@ -66,7 +59,6 @@ $(function() {
 
       // determine winning image
       var winner = getWinner($element);
-      console.log(winner);
 
       // increment votes for winning image
       winner.votes++;
@@ -79,10 +71,10 @@ $(function() {
       showVotes();
 
       // disable further voting
-      $('.photos').off("click");
+      $('#pics').off("click");
 
       // allow voting again
-      $('.vote-again').show();
+      $('.vote-again').removeClass("hidden");
       $('.vote-again button').on("click", function(event) {
         event.preventDefault();
         tracker.init();
@@ -91,5 +83,26 @@ $(function() {
   }
 
   var tracker = new Tracker();
-  tracker.init();
+  var photos = [];
+
+  $.ajax({
+    type: "GET",
+    url: "https://api.imgur.com/3/album/Bdq6i",
+    headers: {
+      "Authorization": "Client-ID cbf709b9c123244"
+    }
+
+  }).done(function(data) {
+
+    var imageObjects = data.data.images;
+
+    for (var i = 0; i < imageObjects.length; i++) {
+      photos.push(new Photo(imageObjects[i].link));
+    }
+
+    tracker.init();
+
+  }).fail(function() {
+    console.log("Shit. It didn't work.");
+  });
 });

@@ -3,9 +3,15 @@ on load:
   *-display pics
 
 on clicking photo:
-  -highlight clicked photo
-  -reveal rank, votes for each pic
-  -show button to repeat the process with encouraging text
+  *-highlight clicked photo
+  *-reveal rank, votes for each pic
+  *-show button to repeat the process with encouraging text
 
 CSS
-  -class "highlight"
+  *-class "highlight"
+
+#002F32 : Dark green;
+#42826C : Med green;
+#A5C77F : Light green;
+#FFC861 : Yellow;
+#C84663 : Pink;
