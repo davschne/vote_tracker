@@ -138,12 +138,15 @@ body {
   letter-spacing: .1rem;
   color: #002F32;
   background-color: #FFC861; }
+header, main {
+  border: 1px solid #002F32;
+  box-shadow: 20px 20px 10px #002F32;
+}
 header {
   background-color: #A5C77F;
-  border: 1px solid #002F32;}
+}
 main {
   background-color: #42826C;
-  border: 1px solid #002F32;
 }
 h1 {
   padding: 2rem;
