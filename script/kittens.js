@@ -7,8 +7,7 @@ $(function() {
   }
 
   Photo.prototype.displayImages = function($element) {
-    $element.empty()
-      .append('<img src="' + this.image + '">');
+    $element.html('<img src="' + this.image + '">');
   };
 
   Photo.prototype.displayVotes = function($element) {
@@ -47,7 +46,7 @@ $(function() {
       $photos = $('.photos')//.removeClass("highlight");
 
       // hide/disable vote-again
-      $('.vote-again').hide();
+      $('.vote-again').addClass("hidden");
       $('.vote-again button').off("click");
 
       // load photos
@@ -82,7 +81,7 @@ $(function() {
       $('.photos').off("click");
 
       // allow voting again
-      $('.vote-again').show();
+      $('.vote-again').removeClass("hidden");
       $('.vote-again button').on("click", function(event) {
         event.preventDefault();
         tracker.init();
