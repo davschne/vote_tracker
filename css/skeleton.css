@@ -158,14 +158,12 @@ h2 {
   color: #FFC861;
 }
 img {
+  cursor: pointer;
   border: 5px solid #002F32;
   box-shadow: 8px 8px 5px #002F32;
 }
 .photos {
   padding: 5rem 0 2rem 0;
-}
-img:hover, img:focus {
-  border-color: #A5C77F;
 }
 .highlight {
   border: 5px solid #FFC861;
