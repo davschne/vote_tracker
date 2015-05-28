@@ -5,14 +5,16 @@ app.listen(5000, function() {
   console.log("Server running on port 5000...");
 });
 
+var sendOptions = {root: "/Users/David/repos/codefellows/vote_tracker/public/"};
+
 app.get("/", function(req, res) {
-  res.status(200).sendFile("/public/index.html");
+  res.status(200).sendFile("index.html", sendOptions);
 });
 
 app.get("/secret", function(req, res) {
-  res.status(200).send("<h1>Bruce Willis' character was dead THE WHOLE TIME!</h1>");
+  res.status(200).sendFile("secret.html", sendOptions);
 });
 
 app.use(function(req, res) {
-  res.status(404).send("<h1>404: Not found</h1>");
+  res.status(404).sendFile("error.html", sendOptions);
 });
