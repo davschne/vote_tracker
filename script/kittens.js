@@ -11,10 +11,10 @@ $(function() {
 
   Photo.prototype.displayVotes = function($element) {
     $element.append('<p>Total votes: <span class="votes">' + this.votes + '</span></p>');
-  }
+  };
 
   function Tracker() {
-    var imgA, imgB;
+    var imgA, imgB, photos;
 
     var getRandomIndices = function() {
       var randA = Math.floor(Math.random() * photos.length);
@@ -35,7 +35,8 @@ $(function() {
       imgB.displayVotes($photos.eq(1));
     };
 
-    this.init = function() {
+    this.init = function(photos_) {
+      photos = photos_;
       // get image container nodes, remove highlighting
       $photos = $('.photos');
 
@@ -77,13 +78,12 @@ $(function() {
       $('.vote-again').removeClass("hidden");
       $('.vote-again button').on("click", function(event) {
         event.preventDefault();
-        tracker.init();
+        tracker.init(photos);
       });
     };
   }
 
   var tracker = new Tracker();
-  var photos = [];
 
   $.ajax({
     type: "GET",
@@ -94,13 +94,14 @@ $(function() {
 
   }).done(function(data) {
 
+    var photos = []; // Array to hold Photo objects
     var imageObjects = data.data.images;
 
     for (var i = 0; i < imageObjects.length; i++) {
       photos.push(new Photo(imageObjects[i].link));
     }
 
-    tracker.init();
+    tracker.init(photos);
 
   }).fail(function() {
     console.log("Shit. It didn't work.");
