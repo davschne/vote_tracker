@@ -16,7 +16,9 @@ app.get("/", function(req, res) {
 });
 
 app.get("/secret", function(req, res) {
-  res.status(200).sendFile("secret.html", sendOptions);
+  var secret = process.env.SECRET;
+  console.log(secret);
+  res.status(200).send(secret);
 });
 
 app.use(function(req, res) {
