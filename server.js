@@ -3,9 +3,10 @@ var fs = require("fs");
 var app = express();
 
 app.use(express.static("public"));
+app.set('port', process.env.PORT || 5000);
 
-app.listen(5000, function() {
-  console.log("Server running on port 5000...");
+app.listen(app.get('port'), function() {
+  console.log("Server running on port " + app.get('port') + "...");
 });
 
 var sendOptions = {root: __dirname + "/public/"};
